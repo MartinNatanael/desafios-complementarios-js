@@ -2,6 +2,8 @@ let cliente = "";
 let dia = "";
 let horarios = "";
 let servicios = "";
+let precio = 0;
+let total = 0;
 
 
 function saludar(){ 
@@ -16,8 +18,7 @@ else{
    return alert("El nombre ingresado es incorrecto");
 }
 }
-/* primero elegir dia y despues dar horarios de turnos disponibles
-retornar el dia elegido y la hora*/
+
 
 
 
@@ -43,6 +44,7 @@ switch(dia){
       break  
       default:
           alert("El dia ingresado es incorrecto")
+          dia = 0;
 } 
 alert("¿A que hora queres venir?")
 
@@ -66,6 +68,8 @@ switch(horarios){
       break  
       default:
           alert("El horario ingresado es incorrecto")
+          horarios = 0;
+
 } 
 
 return alert(`${cliente} tu turno quedó reservado para el dia ${dia} las ${horarios}`);
@@ -73,15 +77,56 @@ return alert(`${cliente} tu turno quedó reservado para el dia ${dia} las ${hora
 }
 
 function eleccionServicio(){
-    confirm("¡Tenes la posibilidad de elegir lo que vas a hacerte en tus uñas ahora!");
+     eleccion = confirm("¡Tenes la posibilidad de elegir lo que vas a hacerte en tus uñas ahora!");
    
-    if(confirm){
-       alert("entro!");
-
+    if(eleccion){
+        while (isNaN(servicios) || servicios == 0 || servicios > 4) {
+            servicios = parseInt(prompt("Elegi tu servicio, ingresando un numero \n 1-Esmaltado en manos $600 \n 2-Esmaltado en pies $500 \n 3-Esmaltado en manos y pies $ 1000"));
+        }
+        switch (servicios) {
+            case 1:
+                servicios = "Esmaltado en manos"
+                precio = 600;
+                
+                break;
+            case 2:
+                servicios = "Esmaltado en pies"
+                precio = 500;
+                
+                break;
+            case 3:
+                servicios = "Esmaltado en manos y pies"
+                precio = 1000;
+                
+                break;
+            default:
+                alert("No ingresaste un valor correcto")
+                servicios = "";
+                precio = 0;
+        }
     }
-
+   
+return alert(`Te vas a realizar ${servicios} El total es $${precio}`)
 }
+
+function descuento(){
+    aplicarDescuento = confirm (`${cliente.toUpperCase()} ¿Queres obtener un cupon de 10% de descuento en tu servicio?`) 
+    
+    if(aplicarDescuento){
+        
+        datos = prompt("Dejanos tu e-mail y obtene tu descuento de 10%")
+        total = (precio) - (precio*0.1); 
+    }
+ else{
+   total = precio;
+ }
+}
+
+
 
 saludar();
 eleccionTurno();
 eleccionServicio();
+descuento();
+
+alert(`Te vas a realizar ${servicios} El total es $${total}`);
